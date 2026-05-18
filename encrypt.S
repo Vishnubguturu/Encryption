@@ -32,6 +32,17 @@ encrypt:
     ble     .Ldone
 
     // your code here
+    
+    mov r3, #0 // r3 = i = 0
+.Lloop:
+    cmp r3, r2 // i < cnt
+    beq .Ldone // if not i < cnt, exit loop
+    ldrb r4, [r0, r3] // r4 = iobuf[i]
+    ldrb r5, [r1, r3] // r5 = bookbuf[i]
+    eor r4, r4, r5 // r4 = r4 ^ r5
+    strb r4, [r0, r3] // iobuf[i] = r4
+    add r3, r3, #1 // i++
+    b .Lloop
 
     // do not alter anything below this line
 .Ldone:
